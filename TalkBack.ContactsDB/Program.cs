@@ -61,6 +61,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<ContactsHub>("hubs/Contacts");
     endpoints.MapHub<ChatHub>("hubs/Chat");
     endpoints.MapHub<GameHub>("hubs/Game");
+    //hello
     endpoints.MapControllers();
 });
 
