@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SignalR;
-using Models;
+﻿using Microsoft.AspNetCore.SignalR;
 
-namespace Hubs
+namespace TalkBack.Hubs
 {
     public class ContactsHub : Hub
     {

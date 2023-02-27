@@ -1,7 +1,5 @@
-﻿using Models;
-using System.Security.Claims;
-
-namespace TalkBack.ContactsDB.Services.Token
+﻿using TalkBack.Models;
+namespace TalkBack.Server.Services.Token
 {
     public interface IJWTTokenGenerator
     {

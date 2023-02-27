@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Models;
-using System.Security.Claims;
+using TalkBack.Models;
 
-namespace DataService
+namespace TalkBack.DataService
 {
-    public class DataService : IDataService
+    public class IdentityService : IIdentityService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DataService(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
+        public IdentityService(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._roleManager = roleManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public async Task ChangeConnectionStatus(User user)
@@ -65,7 +64,7 @@ namespace DataService
             return existUsername != null;
         }
 
-        public async Task<SignInResult> Login(Login loginModel)
+        public async Task<SignInResult> Login(LoginRequest loginModel)
         {
             var result = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, loginModel.RememberMe, false);
             return result;
@@ -76,7 +75,7 @@ namespace DataService
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<bool> Register(Register registerModel)
+        public async Task<bool> Register(RegisterRequest registerModel)
         {
             var newUser = new User { UserName = registerModel.Username };
             var result = await _userManager.CreateAsync(newUser, registerModel.Password);

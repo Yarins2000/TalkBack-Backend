@@ -1,15 +1,10 @@
-﻿using Data;
-using DataService;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Models;
-using System.Security.Claims;
-using TalkBack.ContactsDB.Services.Token;
+using TalkBack.DataService;
+using TalkBack.Server.Services.Token;
+using TalkBack.Models;
 
-namespace TalkBack.ContactsDB.Controllers
+namespace TalkBack.Server.Controllers
 {
     /// <summary>
     /// Represents a controller for identity usage.
@@ -18,11 +13,11 @@ namespace TalkBack.ContactsDB.Controllers
     [ApiController]
     public class IdentityController : ControllerBase
     {
-        private readonly IDataService _service;
+        private readonly IIdentityService _service;
         private readonly UserManager<User> _userManager;
         private readonly IJWTTokenGenerator _jwtToken;
 
-        public IdentityController(IDataService service, UserManager<User> userManager, IJWTTokenGenerator jwtToken)
+        public IdentityController(IIdentityService service, UserManager<User> userManager, IJWTTokenGenerator jwtToken)
         {
             _service = service;
             _userManager = userManager;
@@ -30,7 +25,7 @@ namespace TalkBack.ContactsDB.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(Login loginModel)
+        public async Task<IActionResult> Login(LoginRequest loginModel)
         {
             var result = await _service.Login(loginModel);
             if (result.Succeeded)
@@ -51,7 +46,7 @@ namespace TalkBack.ContactsDB.Controllers
         }
 
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout(LogoutDto logoutModel)
+        public async Task<IActionResult> Logout(LogoutRequest logoutModel)
         {
             var user = await _service.GetUserByUsername(logoutModel.Username!);
             await _service.Logout();
@@ -62,7 +57,7 @@ namespace TalkBack.ContactsDB.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(Register registerModel)
+        public async Task<IActionResult> Register(RegisterRequest registerModel)
         {
             var isUsernameExist = await _service.IsUsernameInUse(registerModel.Username!);
             if (isUsernameExist is true)

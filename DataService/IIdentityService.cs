@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Models;
+using TalkBack.Models;
 
-namespace DataService
+namespace TalkBack.DataService
 {
-    public interface IDataService
+    public interface IIdentityService
     {
-        public Task<SignInResult> Login(Login loginModel);
+        public Task<SignInResult> Login(LoginRequest loginModel);
         public Task Logout();
-        public Task<bool> Register(Register registerModel);
+        public Task<bool> Register(RegisterRequest registerModel);
         public Task<bool> IsUsernameInUse(string username);
         public Task<bool> ChangePassword(string username, string newPassword);
         public Task<User> GetUserByUsername(string username);

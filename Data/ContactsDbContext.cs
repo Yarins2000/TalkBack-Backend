@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Models;
+using TalkBack.Models;
 
-namespace Data
+namespace TalkBack.Data
 {
     public class ContactsDbContext : IdentityDbContext<User>
     {

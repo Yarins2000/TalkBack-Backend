@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "TalkBack.ContactsDB": {
+    "TalkBack.Server": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

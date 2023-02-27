@@ -1,8 +1,5 @@
-using Models.Checkers;
-using Logic;
-using System.Xml.Linq;
-
-namespace GameLogicTests
+using TalkBack.Logic.Checkers;
+namespace TalkBack.GameLogicTests
 {
     public class GameTests
     {

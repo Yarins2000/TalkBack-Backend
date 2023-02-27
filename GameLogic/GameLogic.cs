@@ -1,24 +1,19 @@
-﻿using Models;
-using Models.Checkers;
-
-namespace Logic
+﻿namespace TalkBack.Logic.Checkers
 {
     public class GameLogic
     {
         private readonly Game _game;
         private readonly Board _board;
 
+        public Game Game { get; }
+
         public GameLogic()
         {
             _game = new Game();
-            _board = new Board();
-            InitializeBoard();
+            _board = new Board() { BoardLength = 8 };
             StartGame();
-        }
-
-        public GameLogic(string firstUserConnectionId, string secondUserConnectionId): this()
-        {
-            //StartGame(firstUserConnectionId, secondUserConnectionId);
+            InitializeBoard();
+            Game = _game;
         }
 
         public GameLogic(Game game, Board board)
@@ -134,6 +129,7 @@ namespace Logic
                 return MakeRegularMove(fromRow, fromColumn, toRow, toColumn);
             else if (Math.Abs(toRow - fromRow) == 2 && Math.Abs(toColumn - fromColumn) == 2)
                 return MakeCaptureMove(fromRow, fromColumn, toRow, toColumn);
+            IsGameOver();
             return false;
         }
 
@@ -313,7 +309,8 @@ namespace Logic
             var capturedPiece = _game.Players.First(p => p.Color != activePlayer.Color).Pieces.First(p => p.Position == (middleRow, middleColumn));
             var opponentPlayer = _game.Players.FirstOrDefault(p => p != activePlayer);
             capturedPiece.IsAlive = false;
-            opponentPlayer.CapturedPieces++;
+            capturedPiece.Position = (-1, -1);
+            opponentPlayer!.CapturedPieces++;
 
             if (IsBecomingKing(toRow, activePlayer.Color))
                 currentPiece.IsKing = true;
@@ -324,8 +321,12 @@ namespace Logic
             _board.BoardGame[fromRow, fromColumn] = CheckerState.Empty;
             _board.BoardGame[middleRow, middleColumn] = CheckerState.Empty;
 
-            // Switch the active player
-            SwitchTurn(_game.Players[0], _game.Players[1]);
+            var moreCaptures = GetCaptureMoves(toRow, toColumn);
+            if (moreCaptures.Count == 0)
+            {
+                // Switch the active player
+                SwitchTurn(_game.Players[0], _game.Players[1]);
+            }
 
             _game.UpdatedAt = DateTime.Now;
 

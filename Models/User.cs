@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Models
+namespace TalkBack.Models
 {
     public class User: IdentityUser
     {

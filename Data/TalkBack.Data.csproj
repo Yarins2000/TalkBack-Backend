@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Models\TalkBack.Models.csproj" />
   </ItemGroup>
 
 </Project>

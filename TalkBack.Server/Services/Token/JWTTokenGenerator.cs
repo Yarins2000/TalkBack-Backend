@@ -1,10 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Models;
+using TalkBack.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace TalkBack.ContactsDB.Services.Token
+namespace TalkBack.Server.Services.Token
 {
     public class JWTTokenGenerator : IJWTTokenGenerator
     {
