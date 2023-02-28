@@ -1,5 +1,8 @@
 ﻿namespace TalkBack.Logic.Checkers;
 
+/// <summary>
+/// The class represents a game.
+/// </summary>
 public class Game
 {
     /// <summary>

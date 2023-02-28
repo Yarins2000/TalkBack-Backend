@@ -1,6 +1,9 @@
 using TalkBack.Logic.Checkers;
 namespace TalkBack.GameLogicTests
 {
+    /// <summary>
+    /// Testing class for the game logic functions.
+    /// </summary>
     public class GameTests
     {
         //private GameLogic _gameLogic = new(new Game(), new Board());

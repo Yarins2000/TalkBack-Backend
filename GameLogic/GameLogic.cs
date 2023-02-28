@@ -1,5 +1,8 @@
 ﻿namespace TalkBack.Logic.Checkers
 {
+    /// <summary>
+    /// The class which responsible for the game logic methods.
+    /// </summary>
     public class GameLogic
     {
         private readonly Game _game;
@@ -11,7 +14,7 @@
         {
             _game = new Game();
             _board = new Board() { BoardLength = 8 };
-            StartGame();
+            InitializeGame();
             InitializeBoard();
             Game = _game;
         }
@@ -22,7 +25,10 @@
             _board = board;
         }
 
-        public void InitializeBoard() //maybe change to private
+        /// <summary>
+        /// Initializes the board with white/black/empty squares and the pieces of each player.
+        /// </summary>
+        public void InitializeBoard()
         {
             var boardGame = new CheckerState[_board.BoardLength, _board.BoardLength];
             var blackPieces = new List<Piece>();
@@ -77,7 +83,10 @@
             _board.BoardGame = boardGame;
         }
 
-        public void StartGame(/*string firstUserConnectionId, string secondUserConnectionId*/)
+        /// <summary>
+        /// Initializes the game.
+        /// </summary>
+        public void InitializeGame(/*string firstUserConnectionId, string secondUserConnectionId*/)
         {
             _game.Players = new Player[2]
             {
@@ -112,17 +121,32 @@
             _game.Status = GameStatus.InProgress;
         }
 
-        public Piece CreatePiece(Color color, int i, int j)
+        /// <summary>
+        /// Creates a single piece.
+        /// </summary>
+        /// <param name="color">the piece's color</param>
+        /// <param name="row">the piece's row position</param>
+        /// <param name="column">the piece's column position</param>
+        /// <returns>The new created piece.</returns>
+        public Piece CreatePiece(Color color, int row, int column)
         {
             return new()
             {
                 Color = color,
-                Position = (i, j),
+                Position = (row, column),
                 IsAlive = true,
                 IsKing = false
             };
         }
 
+        /// <summary>
+        /// Makes a move made by the user.
+        /// </summary>
+        /// <param name="fromRow">The current playing piece starting row</param>
+        /// <param name="fromColumn">The current playing piece starting column</param>
+        /// <param name="toRow">The row which the current playing piece wants to move to</param>
+        /// <param name="toColumn">The column which the current playing piece wants to move to</param>
+        /// <returns>true if the move was invalid, otherwise false.</returns>
         public bool MakeMove(int fromRow, int fromColumn, int toRow, int toColumn)
         {
             if (Math.Abs(toRow - fromRow) == 1 && Math.Abs(toColumn - fromColumn) == 1)
@@ -133,6 +157,14 @@
             return false;
         }
 
+        /// <summary>
+        /// Makes a single step move.
+        /// </summary>
+        /// <param name="fromRow">The current playing piece starting row</param>
+        /// <param name="fromColumn">The current playing piece starting column</param>
+        /// <param name="toRow">The row which the current playing piece wants to move to</param>
+        /// <param name="toColumn">The column which the current playing piece wants to move to</param>
+        /// <returns>true if the move is valid, otherwise false.</returns>
         public bool MakeRegularMove(int fromRow, int fromColumn, int toRow, int toColumn)
         {
             if (!IsValidMove(fromRow, fromColumn, toRow, toColumn))
@@ -156,7 +188,15 @@
             return true;
         }
 
-        public bool IsValidMove(int fromRow, int fromColumn, int toRow, int toColumn)//maybe change to private
+        /// <summary>
+        /// Checks for the validity of the move.
+        /// </summary>
+        /// <param name="fromRow">The current playing piece starting row</param>
+        /// <param name="fromColumn">The current playing piece starting column</param>
+        /// <param name="toRow">The row which the current playing piece wants to move to</param>
+        /// <param name="toColumn">The column which the current playing piece wants to move to</param>
+        /// <returns>true if the move is valid, otherwise false.</returns>
+        public bool IsValidMove(int fromRow, int fromColumn, int toRow, int toColumn)
         {
             // Check if the move is within the board bounds
             if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 ||
@@ -186,7 +226,14 @@
             return true;
         }
 
-        public bool IsValidDirection(int fromRow, int toRow, Color playerColor)//maybe change to private
+        /// <summary>
+        /// Checks for the validity of the movement direction.
+        /// </summary>
+        /// <param name="fromRow">The current playing piece starting row</param>
+        /// <param name="toRow">The row which the current playing piece wants to move to</param>am>
+        /// <param name="playerColor">The color of the current piece.</param>
+        /// <returns>true if the direction is valid, otherwise false.</returns>
+        public bool IsValidDirection(int fromRow, int toRow, Color playerColor)
         {
             if (playerColor == Color.Black)
                 return toRow - fromRow > 0;
@@ -194,7 +241,13 @@
                 return toRow - fromRow < 0;
         }
 
-        public bool IsBecomingKing(int toRow, Color playerColor)//maybe change to private
+        /// <summary>
+        /// Checks if the piece has become a king.
+        /// </summary>
+        /// <param name="toRow">The row which the current playing piece wants to move to</param>
+        /// <param name="playerColor"></param>
+        /// <returns>true if the piece has become a king, otherwise false.</returns>
+        public bool IsBecomingKing(int toRow, Color playerColor)
         {
             if (playerColor == Color.Black)
                 return toRow == 7;
@@ -202,6 +255,11 @@
                 return toRow == 0;
         }
 
+        /// <summary>
+        /// Switch the turns and save the current player.
+        /// </summary>
+        /// <param name="p1">player 1</param>
+        /// <param name="p2">player 2</param>
         public void SwitchTurn(Player p1, Player p2)
         {
             p1.IsTurn = !p1.IsTurn;
@@ -210,7 +268,15 @@
         }
 
         // ===== Capturing ========
-        public bool IsCapturePossible(int fromRow, int fromColumn, int toRow, int toColumn)//maybe change to private
+        /// <summary>
+        /// Checks if the capture is valid.
+        /// </summary>
+        /// <param name="fromRow">The current playing piece starting row</param>
+        /// <param name="fromColumn">The current playing piece starting column</param>
+        /// <param name="toRow">The row which the current playing piece wants to move to</param>
+        /// <param name="toColumn">The column which the current playing piece wants to move to</param>
+        /// <returns>true if the capture move was valid, otherwise false.</returns>
+        public bool IsCapturePossible(int fromRow, int fromColumn, int toRow, int toColumn)
         {
             // Check if the move is within the board bounds
             if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 ||
@@ -244,10 +310,18 @@
             return true;
         }
 
-        public List<(int, int, int, int)> GetCaptureMoves(int fromRow, int fromColumn)//maybe change to private
+        /// <summary>
+        /// Checks for the possible capture move depending on the starting position.
+        /// </summary>
+        /// <param name="fromRow">The current playing piece starting row</param>
+        /// <param name="fromColumn">The current playing piece starting column</param>
+        /// <returns>A list of tuples that represent the starting position (item1, item2) and the possible position after a capture(item3, item4).</returns>
+        public List<(int, int, int, int)> GetCaptureMoves(int fromRow, int fromColumn)
         {
             var captureMoves = new List<(int, int, int, int)>();
-            var directions = new[] { (1, 1), (1, -1), (-1, 1), (-1, -1) };
+            var currentPiece = _game.CurrentPlayer!.Pieces.First(p => p.Position == (fromRow, fromColumn));
+            var directions = currentPiece.IsKing ? new[] { (1, 1), (1, -1), (-1, 1), (-1, -1) } :
+                                     (currentPiece.Color == Color.Black ? new[] { (1, 1), (1, -1) } : new[] { (-1, 1), (-1, -1) });
             foreach (var (dRow, dCol) in directions)
             {
                 var toRow = fromRow + 2 * dRow;
@@ -258,7 +332,7 @@
             return captureMoves;
         }
 
-        public List<(int, int, int, int)> GetCaptureSequence(int fromRow, int fromColumn)//maybe change to private
+        public List<(int, int, int, int)> GetCaptureSequence(int fromRow, int fromColumn)//maybe delete
         {
             var sequence = new List<(int, int, int, int)> { (fromRow, fromColumn, fromRow, fromColumn) };
             var current = (fromRow, fromColumn, fromRow, fromColumn);
@@ -277,6 +351,15 @@
             return sequence;
         }
 
+        /// <summary>
+        /// Determines whether a capture move from the starting position (fromRow, fromColumn) to the end position (toRow, toColumn)
+        /// is valid for the current player. A capture move is valid if it is possible and results in capturing at least one opponent's piece.
+        /// </summary>
+        /// <param name="fromRow">The row of the starting position.</param>
+        /// <param name="fromColumn">The column of the starting position.</param>
+        /// <param name="toRow">The row of the end position.</param>
+        /// <param name="toColumn">The column of the end position.</param>
+        /// <returns>True if the capture move is valid, otherwise false.</returns>
         public bool IsValidCaptureMove(int fromRow, int fromColumn, int toRow, int toColumn)//maybe change to private
         {
             if (!IsCapturePossible(fromRow, fromColumn, toRow, toColumn))
@@ -289,6 +372,14 @@
             return captureMoves.Any(c => c.Item3 == toRow && c.Item4 == toColumn);
         }
 
+        /// <summary>
+        /// Makes a capture move - move the piece from the starting position to the end one and exclude the captured piece from the game.
+        /// </summary>
+        /// <param name="fromRow">The row of the starting position.</param>
+        /// <param name="fromColumn">The column of the starting position.</param>
+        /// <param name="toRow">The row of the end position.</param>
+        /// <param name="toColumn">The column of the end position.</param>
+        /// <returns>True if the capture was successful, otherwise false.</returns>
         public bool MakeCaptureMove(int fromRow, int fromColumn, int toRow, int toColumn)
         {
             if (!IsValidCaptureMove(fromRow, fromColumn, toRow, toColumn))
@@ -333,6 +424,10 @@
             return true;
         }
 
+        /// <summary>
+        /// Checks wether the game is over or not.
+        /// </summary>
+        /// <returns>True if the game is over, otherwise false.</returns>
         public bool IsGameOver()
         {
             // Check if one player has won

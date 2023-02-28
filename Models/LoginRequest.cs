@@ -1,5 +1,8 @@
 ﻿namespace TalkBack.Models
 {
+    /// <summary>
+    /// A class represents a login request.
+    /// </summary>
     public class LoginRequest
     {
         public string? Username { get; set; }

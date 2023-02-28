@@ -4,6 +4,9 @@ using TalkBack.Models;
 
 namespace TalkBack.DataService
 {
+    /// <summary>
+    /// The service class that implements <see cref="IIdentityService"/> interface. Responsible for the methods implementations.
+    /// </summary>
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<User> _userManager;
@@ -53,20 +56,15 @@ namespace TalkBack.DataService
             return _signInManager.Context.User.Identity.IsAuthenticated;
         }
 
-        /// <summary>
-        /// Checks wether the username is already in use.
-        /// </summary>
-        /// <param name="username">the received username</param>
-        /// <returns>true if the username is already in use, otherwise false.</returns>
         public async Task<bool> IsUsernameInUse(string username)
         {
             var existUsername = await GetUserByUsername(username);
             return existUsername != null;
         }
 
-        public async Task<SignInResult> Login(LoginRequest loginModel)
+        public async Task<SignInResult> Login(LoginRequest loginRequest)
         {
-            var result = await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, loginModel.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(loginRequest.Username, loginRequest.Password, loginRequest.RememberMe, false);
             return result;
         }
 

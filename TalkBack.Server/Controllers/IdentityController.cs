@@ -24,6 +24,12 @@ namespace TalkBack.Server.Controllers
             _jwtToken = jwtToken;
         }
 
+        /// <summary>
+        /// Handles HTTP POST requests to the "login" endpoint.
+        /// </summary>
+        /// <param name="loginModel">The "LoginRequest" object containing the username, password and remember me.</param>
+        /// <returns>OK if the authentication was successful, with an object containing the authentication result, the user and the access token.
+        /// BadRequest If the authentication failed, returns a message indicating that the username or password are incorrect.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest loginModel)
         {
@@ -45,6 +51,11 @@ namespace TalkBack.Server.Controllers
                 return BadRequest("username or/and password are incorrect");
         }
 
+        /// <summary>
+        /// Handles HTTP POST requests to the "logout" endpoint.
+        /// </summary>
+        /// <param name="logoutModel">The "LogoutRequest" object containing the username.</param>
+        /// <returns>Ok status.</returns>
         [HttpPost("logout")]
         public async Task<IActionResult> Logout(LogoutRequest logoutModel)
         {
@@ -56,6 +67,12 @@ namespace TalkBack.Server.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Handles HTTP POST requests to the "register" endpoint.
+        /// </summary>
+        /// <param name="registerModel">The "RegisterRequest" object containing the username, password and confirm password.</param>
+        /// <returns>OK if the registration was successful, with a true value.
+        /// BadRequest If the registration failed.</returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest registerModel)
         {
@@ -67,6 +84,12 @@ namespace TalkBack.Server.Controllers
             return result ? Ok(result) : BadRequest();
         }
 
+        /// <summary>
+        /// Handles HTTP PUT requests to the "changepassword" endpoint.
+        /// </summary>
+        /// <param name="username">The user's username</param>
+        /// <param name="newPassword">The user's new password</param>
+        /// <returns>Ok if the change was successful, otherwise BadRequest.</returns>
         [HttpPut("changepassword")]
         public async Task<ActionResult> ChangePassword(string username, string newPassword)
         {
@@ -74,6 +97,10 @@ namespace TalkBack.Server.Controllers
             return result ? Ok() : BadRequest();
         }
 
+        /// <summary>
+        /// Handles HTTP GET requests to the "users" endpoint.
+        /// </summary>
+        /// <returns>Ok with an IEnumerable of users.</returns>
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
@@ -81,6 +108,10 @@ namespace TalkBack.Server.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Handles HTTP GET requests to the "isAuthenticated" endpoint.
+        /// </summary>
+        /// <returns>Ok with a boolean value indicating the authentication success.</returns>
         [HttpGet("isAuthenticated")]
         public IActionResult IsAuthenticated()
         {

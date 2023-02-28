@@ -1,5 +1,8 @@
 ﻿namespace TalkBack.Logic.Checkers;
 
+/// <summary>
+/// A class represents a single player.
+/// </summary>
 public class Player
 {
     /// <summary>
