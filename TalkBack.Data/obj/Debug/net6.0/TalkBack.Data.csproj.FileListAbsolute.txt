@@ -1,0 +1,15 @@
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\bin\Debug\net6.0\TalkBack.Data.deps.json
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\bin\Debug\net6.0\TalkBack.Data.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\bin\Debug\net6.0\TalkBack.Data.pdb
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\bin\Debug\net6.0\TalkBack.Models.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\bin\Debug\net6.0\TalkBack.Models.pdb
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.AssemblyInfo.cs
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.csproj.CopyComplete
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\refint\TalkBack.Data.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\TalkBack.Data.pdb
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Data\obj\Debug\net6.0\ref\TalkBack.Data.dll

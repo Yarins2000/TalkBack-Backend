@@ -1,0 +1,15 @@
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\bin\Debug\net6.0\TalkBack.Hubs.deps.json
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\bin\Debug\net6.0\TalkBack.Hubs.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\bin\Debug\net6.0\TalkBack.Hubs.pdb
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\bin\Debug\net6.0\TalkBack.CheckersGameLogic.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\bin\Debug\net6.0\TalkBack.CheckersGameLogic.pdb
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.AssemblyInfo.cs
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.csproj.CopyComplete
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\refint\TalkBack.Hubs.dll
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\TalkBack.Hubs.pdb
+C:\Users\PC\Desktop\selaCourse\FinalProject\TalkBack.Server\TalkBack.Hubs\obj\Debug\net6.0\ref\TalkBack.Hubs.dll
