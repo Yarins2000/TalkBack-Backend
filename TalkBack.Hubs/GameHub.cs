@@ -120,7 +120,7 @@ namespace TalkBack.Hubs
                 await Clients.Caller.SendAsync("invalidMove");
 
             // Notify the group about the move
-            await Clients.Group(groupName).SendAsync("moveMade", moveResult, fromRow, fromColumn, toRow, toColumn);
+            await Clients.Group(groupName).SendAsync("moveMade", moveResult, fromRow, fromColumn, toRow, toColumn, game.CanSwitchTurns);
 
             // Notify the players the game is over
             if (game.Game.Status != GameStatus.InProgress)

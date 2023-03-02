@@ -9,6 +9,10 @@ namespace TalkBack.CheckersGameLogic
     {
         private readonly Game _game;
         private readonly Board _board;
+        /// <summary>
+        /// Determines wether switching turns is allowed or not (depending on the possibility of the current player to capture more than 1 piece).
+        /// </summary>
+        public bool CanSwitchTurns { get; private set; } = true;
 
         public Game Game { get; }
 
@@ -334,7 +338,7 @@ namespace TalkBack.CheckersGameLogic
             return captureMoves;
         }
 
-        public List<(int, int, int, int)> GetCaptureSequence(int fromRow, int fromColumn)//maybe delete
+        /*public List<(int, int, int, int)> GetCaptureSequence(int fromRow, int fromColumn)//maybe delete
         {
             var sequence = new List<(int, int, int, int)> { (fromRow, fromColumn, fromRow, fromColumn) };
             var current = (fromRow, fromColumn, fromRow, fromColumn);
@@ -351,7 +355,7 @@ namespace TalkBack.CheckersGameLogic
                     break;
             }
             return sequence;
-        }
+        }*/
 
         /// <summary>
         /// Determines whether a capture move from the starting position (fromRow, fromColumn) to the end position (toRow, toColumn)
@@ -417,9 +421,12 @@ namespace TalkBack.CheckersGameLogic
             var moreCaptures = GetCaptureMoves(toRow, toColumn);
             if (moreCaptures.Count == 0)
             {
+                CanSwitchTurns = true;
                 // Switch the active player
                 SwitchTurn(_game.Players[0], _game.Players[1]);
             }
+            else
+                CanSwitchTurns = false;
 
             _game.UpdatedAt = DateTime.Now;
 
