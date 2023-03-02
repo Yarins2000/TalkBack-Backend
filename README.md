@@ -26,3 +26,6 @@ The server is built with ASP.NET Core 6 and Entity Framework Core, and uses MS S
 * Entity Framework Core
 * MS SQL
 * SignalR
+
+### Frontend Project
+<https://github.com/Yarins2000/TalkBack-Frontend>
