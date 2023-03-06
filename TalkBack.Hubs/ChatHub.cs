@@ -9,19 +9,28 @@ namespace TalkBack.Hubs
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class ChatHub : Hub
     {
-        /// <summary>
-        /// Invokes a method to the message's sender/recipient.
-        /// </summary>
-        /// <param name="senderId">The message's sender id(his user id)</param>
-        /// <param name="recipientId">The message's recipient id(his user id)</param>
-        /// <param name="message">The message that sent from sender to recippient</param>
-        /// <param name="isRecipientConnected">Recipient connection status</param>
-        public async Task SendMessageToUser(string senderId, string recipientId, string message, bool isRecipientConnected)
+        private string GenerateGroupName(string user1Id, string user2Id)
         {
-            if (isRecipientConnected)
-                await Clients.User(recipientId).SendAsync("receiveMessage", senderId, message, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
-            else
-                await Clients.User(senderId).SendAsync("messageNotRecieved", "the user is offline, message hasn't received");
+            var ids = new string[] { user1Id, user2Id };
+            Array.Sort(ids);
+            return string.Join("_", ids);
+        }
+
+        public async Task JoinGroup(string senderId, string recipientId)
+        {
+            string groupName = GenerateGroupName(senderId, recipientId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            await Clients.Caller.SendAsync("groupNameReceived", groupName);
+        }
+
+        public async Task LeaveGroup(string groupName)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+        }
+
+        public async Task SendMessage(string senderId, string groupName, string message)
+        {
+            await Clients.Group(groupName).SendAsync("receiveMessage", senderId, message, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
         }
     }
 }
