@@ -30,11 +30,11 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 
-/*builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"),
-                                                            b => b.MigrationsAssembly("TalkBack.Data")));*/
-
-builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SqLiteConnection"),
+builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"),
                                                             b => b.MigrationsAssembly("TalkBack.Data")));
+
+/*builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SqLiteConnection"),
+                                                            b => b.MigrationsAssembly("TalkBack.Data")));*/
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;
@@ -48,7 +48,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddJwtAuthentication(builder.Configuration);
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
@@ -82,9 +82,9 @@ using (var scope = app.Services.CreateScope())
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred creating the SQLite database.");
     }
-}
+}*/
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var ctx = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
 
@@ -110,7 +110,7 @@ using (var scope = app.Services.CreateScope())
             await userManager.CreateAsync(user2, "User123@");
         }
     }
-}*/
+}
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
