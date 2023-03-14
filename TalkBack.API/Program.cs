@@ -48,7 +48,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddJwtAuthentication(builder.Configuration);
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
@@ -81,34 +81,6 @@ var app = builder.Build();
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred creating the SQLite database.");
-    }
-}*/
-
-using (var scope = app.Services.CreateScope())
-{
-    var ctx = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
-
-    if (ctx.Database.EnsureCreated())
-    {
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
-        if (!ctx.Users.Any(u => u.UserName == "user1"))
-        {
-            var user1 = new IdentityUser()
-            {
-                UserName = "user1"
-            };
-            await userManager.CreateAsync(user1, "User123@");
-        }
-
-        if (!ctx.Users.Any(u => u.UserName == "user2"))
-        {
-            var user2 = new IdentityUser()
-            {
-                UserName = "user2"
-            };
-            await userManager.CreateAsync(user2, "User123@");
-        }
     }
 }
 
