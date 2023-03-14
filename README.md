@@ -12,7 +12,8 @@ The server is built with ASP.NET Core 6 and Entity Framework Core, and uses MS S
 1. Clone the repository to your local machine
 2. Open the solution in Visual Studio
 3. Restore the NuGet packages
-4. Update the connection string in the appsettings.json file to point to your local MS SQL database - replace the connection with this: "Server=\<YourServer\>;Database=\<DataBaseNameYouWant\>;Trusted_Connection=True;TrustServerCertificate=True"
+4. Update the connection string in the appsettings.json file to point to your local MS SQL database - replace the connection with this line: 
+`Server=<YourServer>;Database=<DataBaseNameYouWant>;Trusted_Connection=True;TrustServerCertificate=True`
 5. Run the migrations to create the database and tables
 6. Run the application
   
