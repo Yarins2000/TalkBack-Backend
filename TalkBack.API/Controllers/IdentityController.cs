@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IO.Pipes;
 using TalkBack.API.JwtServices;
 using TalkBack.IdentityServices;
 using TalkBack.Models;
@@ -91,9 +92,9 @@ namespace TalkBack.API.Controllers
         /// <param name="newPassword">The user's new password</param>
         /// <returns>Ok if the change was successful, otherwise BadRequest.</returns>
         [HttpPut("changepassword")]
-        public async Task<ActionResult> ChangePassword(string username, string newPassword)
+        public async Task<ActionResult> ChangePassword(ChangePasswordRequest changePasswordRequest)
         {
-            var result = await _service.ChangePassword(username, newPassword);
+            var result = await _service.ChangePassword(changePasswordRequest);
             return result ? Ok() : BadRequest();
         }
 

@@ -29,13 +29,13 @@ namespace TalkBack.IdentityServices
             await _userManager.UpdateAsync(user);
         }
 
-        public async Task<bool> ChangePassword(string username, string newPassword)
+        public async Task<bool> ChangePassword(ChangePasswordRequest changePasswordRequest)
         {
-            var user = await GetUserByUsername(username);
+            var user = await GetUserByUsername(changePasswordRequest.Username);
             if (user is null)
                 return false;
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, user.PasswordHash, newPassword);
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, user.PasswordHash, changePasswordRequest.Password);
             return changePasswordResult.Succeeded;
         }
 

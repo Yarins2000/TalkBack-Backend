@@ -18,8 +18,8 @@ builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
 builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
-    options.KeepAliveInterval = TimeSpan.FromMinutes(10);
-    options.ClientTimeoutInterval = TimeSpan.FromMinutes(20);
+    //options.KeepAliveInterval = TimeSpan.FromMinutes(10);
+    //options.ClientTimeoutInterval = TimeSpan.FromMinutes(20);
 });
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
@@ -37,9 +37,42 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
 }).AddEntityFrameworkStores<ContactsDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+});
+
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var ctx = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
+
+    if (ctx.Database.EnsureCreated())
+    {
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        if (!ctx.Users.Any(u => u.UserName == "user1"))
+        {
+            var user1 = new IdentityUser()
+            {
+                UserName = "user1"
+            };
+            await userManager.CreateAsync(user1, "User123@");
+        }
+
+        if (!ctx.Users.Any(u => u.UserName == "user2"))
+        {
+            var user2 = new IdentityUser()
+            {
+                UserName = "user2"
+            };
+            await userManager.CreateAsync(user2, "User123@");
+        }
+    }
+}
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {

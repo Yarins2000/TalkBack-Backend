@@ -33,7 +33,7 @@ namespace TalkBack.IdentityServices
         /// <param name="username">the user's username</param>
         /// <param name="newPassword">the user's new password</param>
         /// <returns>true if the change was seccessful, otherwise false.</returns>
-        public Task<bool> ChangePassword(string username, string newPassword);
+        public Task<bool> ChangePassword(ChangePasswordRequest changePasswordRequest);
         /// <summary>
         /// Gets a user by its username from the user table in the db.
         /// </summary>
