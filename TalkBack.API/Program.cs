@@ -30,7 +30,10 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 
-builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"),
+/*builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"),
+                                                            b => b.MigrationsAssembly("TalkBack.Data")));*/
+
+builder.Services.AddDbContext<ContactsDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SqLiteConnection"),
                                                             b => b.MigrationsAssembly("TalkBack.Data")));
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -43,10 +46,45 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var dbContext = services.GetRequiredService<ContactsDbContext>();
+        if (dbContext.Database.EnsureCreated())
+        {
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            if (!dbContext.Users.Any(u => u.UserName == "user1"))
+            {
+                var user1 = new IdentityUser()
+                {
+                    UserName = "user1"
+                };
+                await userManager.CreateAsync(user1, "User123@");
+            }
+
+            if (!dbContext.Users.Any(u => u.UserName == "user2"))
+            {
+                var user2 = new IdentityUser()
+                {
+                    UserName = "user2"
+                };
+                await userManager.CreateAsync(user2, "User123@");
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the SQLite database.");
+    }
+}
+
+/*using (var scope = app.Services.CreateScope())
 {
     var ctx = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
 
@@ -72,7 +110,7 @@ using (var scope = app.Services.CreateScope())
             await userManager.CreateAsync(user2, "User123@");
         }
     }
-}
+}*/
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
