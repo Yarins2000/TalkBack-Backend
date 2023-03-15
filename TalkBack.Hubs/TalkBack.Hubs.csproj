@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TalkBack.CheckersGameLogic\TalkBack.CheckersGameLogic.csproj" />
+    <ProjectReference Include="..\TalkBack.Models\TalkBack.Models.csproj" />
   </ItemGroup>
 
 </Project>
